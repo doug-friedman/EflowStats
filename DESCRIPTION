@@ -8,17 +8,19 @@ Authors@R: c( person("Joe", "Mills", role = c("aut","cre"),
 Depends:
     R (>= 3.3)
 Imports:
-    zoo,
     lmom,
     dplyr,
     lubridate,
     RcppRoll,
-    Rcpp
+    imputeTS
 Suggests:
     xtable,
     knitr,
     testthat,
-    rmarkdown
+    rmarkdown,
+    DT,
+    dataRetrieval,
+    readr
 Description: EflowStats is a reimplementation of the Hydrologic Index Tool (HIT; Henriksen et al, 2006) for calculating 171 hydrologic indices for stream classification analysis. EflowStats also calculates 7 additional statistics used for streamflow classification reffered to as the "Magnificent Seven" (MAG7, Archfield et al., 2013). Unlike the original HIT, EflowStatsLite has been redesigned to injest general hydrologic timeseries data and is not restricted to data formats used by the USGS National Water Information System.
 License: CC0
 LazyLoad: yes
@@ -31,4 +33,3 @@ Copyright: This software is in the public domain because it contains materials
     official USGS copyright policy at
     http://www.usgs.gov/visual-id/credit_usgs.html#copyright
 RoxygenNote: 6.0.1
-LinkingTo: Rcpp

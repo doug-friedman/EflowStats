@@ -7,8 +7,8 @@
 #' 
 #' @param x A vector of flow values, should be sorted chronologically.
 #' @return A dataframe with columns "flow" and "event"
-#' @useDynLib EflowStats
-#' @importFrom Rcpp sourceCpp
+#' @importFrom stats na.omit
+#' @importFrom imputeTS na.locf
 #' @export
 #' @examples
 #' x <- sampleData$discharge
@@ -18,31 +18,23 @@ calcChangeEvents <- function(x) {
         diffDays <- diff(x, lag = 1, 
                          differences = 1)
         
-        changeDir <- ifelse(diffDays <0, -1, #fall
-                            ifelse(diffDays ==0, NA, 1)) #rise
+        changeDir <- sign(diffDays)
+        changeDir[changeDir==0] = NA
         
-        #fill NAs with previous event number
-        #This has to be done twice for the front and back ends
-        #because the first NAs will not be carried forward and hte last NAs will not be caried backwarsd
-        changeDir_forward <- zoo::na.locf(changeDir,na.rm=F)
+        changeDir <- imputeTS::na.locf(changeDir, na.remaining="rev")
         
-        changeDir_backward <- zoo::na.locf(changeDir, fromLast=T,na.rm=F)
-        
-        changeDir <- changeDir_forward
-        changeDir[is.na(changeDir)] <- changeDir_backward[is.na(changeDir)]
-
-        runLengths <- rle2(changeDir)
+        runLengths <- rle(changeDir)
         
         runLengths <- data.frame(lengths = runLengths$lengths,
                                  values = runLengths$values,
                                  eventNum = NA)
         
         #Make sequence of numbers to number events
-        events <- seq(1:length(na.omit(runLengths$values)))
+        events <- seq_along(na.omit(runLengths$values))
         
         #Number events
         runLengths$eventNum[!is.na(runLengths$values)] <- events
-        eventVector <- rep(runLengths$eventNum,runLengths$lengths)
+        eventVector <- rep.int(runLengths$eventNum,runLengths$lengths)
         eventVector <- c(NA,eventVector)
         
         changeEvents <- data.frame(flow=x,
