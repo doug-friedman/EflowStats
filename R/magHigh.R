@@ -76,7 +76,7 @@ magHigh <- function(x,yearType = "water",digits=3,drainArea = NULL,pref="mean",.
         if(pref == "mean")
         {
                 mh1.12 <- dplyr::summarize(dplyr::group_by(flowSum_yearMon,month_val),
-                                           statistic = mean(maxFlow))
+                                           statistic = mean.default(maxFlow))
         } else {
                 mh1.12 <- dplyr::summarize(dplyr::group_by(flowSum_yearMon,month_val),
                                            statistic = median(maxFlow))
@@ -85,7 +85,7 @@ magHigh <- function(x,yearType = "water",digits=3,drainArea = NULL,pref="mean",.
         mh1.12 <- mh1.12$statistic
         
         #mh13 indice
-        mh13 <- (sd(flowSum_yearMon$maxFlow)*100)/mean(flowSum_yearMon$maxFlow)
+        mh13 <- (sd(flowSum_yearMon$maxFlow)*100)/mean.default(flowSum_yearMon$maxFlow)
         
         
         #mh14
@@ -101,7 +101,7 @@ magHigh <- function(x,yearType = "water",digits=3,drainArea = NULL,pref="mean",.
         
         #mh18
         log10maxbyyr <- log10(flowSum_year$maxFlow)
-        mh18 <- (sd(log10maxbyyr)*100)/mean(log10maxbyyr)
+        mh18 <- (sd(log10maxbyyr)*100)/mean.default(log10maxbyyr)
         
         
         #mh19
@@ -122,7 +122,7 @@ magHigh <- function(x,yearType = "water",digits=3,drainArea = NULL,pref="mean",.
                         
                 } 
                 else {
-                        mh20 <- mean(flowSum_year$maxFlow)/drainArea
+                        mh20 <- mean.default(flowSum_year$maxFlow)/drainArea
                         
                 }        
         } else(mh20 <- data.frame(indice = "mh20",
@@ -165,7 +165,7 @@ magHigh <- function(x,yearType = "water",digits=3,drainArea = NULL,pref="mean",.
                 eventMax <- dplyr::group_by(x[c("flow","event")],event)
                 eventMax <- dplyr::summarize(eventMax,maxQ = max(flow))
                 eventMax <- na.omit(eventMax)
-                mean(eventMax$maxQ)/thresholdMed
+                mean.default(eventMax$maxQ)/thresholdMed
         })
         
         mh24.27 <- unlist(mh24.27)

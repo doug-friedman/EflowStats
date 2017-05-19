@@ -77,8 +77,8 @@ peakThreshold <- function(x,peakValues,perc=0.6,yearType = "water") {
         peakDaily$logQ <- log10(peakDaily$discharge)
         peakDaily$logPeakQ <- log10(peakDaily$peakQ)
         
-        dailyMean <- mean(peakDaily$logQ)
-        instMean <- mean(peakDaily$logPeakQ)
+        dailyMean <- mean.default(peakDaily$logQ)
+        instMean <- mean.default(peakDaily$logPeakQ)
         
         num <- sum((peakDaily$logQ-dailyMean)*(peakDaily$logPeakQ-instMean))
         denom <- sum((peakDaily$logPeakQ-instMean)*(peakDaily$logPeakQ-instMean))

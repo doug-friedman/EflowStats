@@ -46,8 +46,8 @@ timingHigh <- function(x,yearType = "water",digits=3,pref="mean",floodThreshold=
         flowSum_year$np <- cos(flowSum_year$maxFlowJulDay*2*pi/365.25)
         flowSum_year$mdata <- sin(flowSum_year$maxFlowJulDay*2*pi/365.25)
 
-        xbar <- mean(flowSum_year$np)
-        ybar <- mean(flowSum_year$mdata)
+        xbar <- mean.default(flowSum_year$np)
+        ybar <- mean.default(flowSum_year$mdata)
         if (xbar>0) {
                 th1_temp <- atan(ybar/xbar)*180/pi
         } else if (xbar<0) {

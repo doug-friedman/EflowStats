@@ -63,7 +63,7 @@ magLow <- function(x,yearType = "water",digits=3,drainArea = NULL,pref="mean",..
         flowSum_year <- dplyr::summarize(dplyr::group_by(x,year_val),
                                          minFlow = min(discharge),
                                          medFlow = median(discharge),
-                                         meanFlow = mean(discharge))
+                                         meanFlow = mean.default(discharge))
         
         flowSum_yearMon <- dplyr::summarize(dplyr::group_by(x,year_val,month_val),
                                             minFlow = min(discharge),
@@ -74,7 +74,7 @@ magLow <- function(x,yearType = "water",digits=3,drainArea = NULL,pref="mean",..
         if(pref == "mean")
         {
                 ml1.12 <- dplyr::summarize(dplyr::group_by(flowSum_yearMon,month_val),
-                                           statistic = mean(minFlow))
+                                           statistic = mean.default(minFlow))
         } else {
                 ml1.12 <- dplyr::summarize(dplyr::group_by(flowSum_yearMon,month_val),
                                            statistic = median(minFlow))
@@ -85,12 +85,12 @@ magLow <- function(x,yearType = "water",digits=3,drainArea = NULL,pref="mean",..
         ml1.12 <- ml1.12$statistic
         
         #ml13
-        ml13 <- (sd(flowSum_yearMon$minFlow)*100)/mean(flowSum_yearMon$minFlow)
+        ml13 <- (sd(flowSum_yearMon$minFlow)*100)/mean.default(flowSum_yearMon$minFlow)
         
         
         #ml14-16
-        ml14 <- mean(flowSum_year$minFlow/flowSum_year$medFlow)
-        ml15 <- mean(flowSum_year$minFlow/flowSum_year$meanFlow)
+        ml14 <- mean.default(flowSum_year$minFlow/flowSum_year$medFlow)
+        ml15 <- mean.default(flowSum_year$minFlow/flowSum_year$meanFlow)
         ml16 <- median(flowSum_year$minFlow/flowSum_year$medFlow)
 
         
@@ -99,20 +99,20 @@ magLow <- function(x,yearType = "water",digits=3,drainArea = NULL,pref="mean",..
                                       bfi = bfi(discharge))
         
         if (pref == "mean") {
-                ml17 <- mean(bfibyyear$bfi)
+                ml17 <- mean.default(bfibyyear$bfi)
         } else {
                 ml17 <- median(bfibyyear$bfi)
         }
         
         sdbfi <- sd(bfibyyear$bfi)
-        meanbfi <- mean(bfibyyear$bfi)
+        meanbfi <- mean.default(bfibyyear$bfi)
         
         ml18 <- (sdbfi/meanbfi)*100
 
         #ml19
         ratiominmean <- (flowSum_year$minFlow/flowSum_year$meanFlow)
         if (pref == "mean") {
-                ml19 <- mean(ratiominmean)*100
+                ml19 <- mean.default(ratiominmean)*100
         } else {
                 ml19 <- median(ratiominmean)*100
         }
@@ -163,13 +163,13 @@ magLow <- function(x,yearType = "water",digits=3,drainArea = NULL,pref="mean",..
 
         
         #ml21
-        ml21 <- (sd(flowSum_year$minFlow)*100)/mean(flowSum_year$minFlow)
+        ml21 <- (sd(flowSum_year$minFlow)*100)/mean.default(flowSum_year$minFlow)
 
         #ml22
         if(!is.null(drainArea))
         {
                 if (pref == "mean") {
-                        ml22 <- (mean(flowSum_year$minFlow))/drainArea
+                        ml22 <- (mean.default(flowSum_year$minFlow))/drainArea
                 } 
                 else {
                         ml22 <- (median(flowSum_year$minFlow))/drainArea

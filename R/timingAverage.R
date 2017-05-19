@@ -51,7 +51,7 @@ timingAverage <- function(x,yearType = "water",digits=3,pref="mean",floodThresho
         
         #calculate some stuff for use later
         x$month_val <- lubridate::month(x$date)
-        meanFlow <- mean(x$discharge)
+        meanFlow <- mean.default(x$discharge)
         
         ###Remove leap year data to calculate Colwell matrix
         #Remove feb29th for Colwell matrix
