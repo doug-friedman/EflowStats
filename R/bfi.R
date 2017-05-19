@@ -15,7 +15,7 @@ bfi <- function(x) {
 
     day7mean <- RcppRoll::roll_mean(x, 7, align = "right")
     min7day <- min(day7mean)
-    meanflow <- mean(x)
+    meanflow <- mean.default(x)
     bfi <- min7day/meanflow 
   return(bfi)
 }

@@ -103,7 +103,7 @@ hitDurationHigh <- function(x,yearType = "water",digits=3,pref="mean",floodThres
         flowSum_yearMon <- dplyr::summarize(dplyr::group_by(x,year_val,month_val),
                                             maxFlow = max(discharge),
                                             medFlow = median(discharge),
-                                            meanFlow = mean(discharge))
+                                            meanFlow = mean.default(discharge))
         maxRollingMean <- dplyr::summarize(dplyr::group_by(x,year_val),
                                            maxRoll3Mean = max(roll3Mean,na.rm=TRUE),
                                            maxRoll7Mean = max(roll7Mean,na.rm=TRUE),
@@ -115,7 +115,7 @@ hitDurationHigh <- function(x,yearType = "water",digits=3,pref="mean",floodThres
         
         #dh1
         if (pref == "mean") {
-                dh1 <- mean(flowSum_year$maxFlow)
+                dh1 <- mean.default(flowSum_year$maxFlow)
         } else {
                 dh1 <- median(flowSum_year$maxFlow)
         }
@@ -138,22 +138,22 @@ hitDurationHigh <- function(x,yearType = "water",digits=3,pref="mean",floodThres
         
         
         #dh6-10
-        dh6 <- (sd(flowSum_year$maxFlow) * 100)/mean(flowSum_year$maxFlow)
+        dh6 <- (sd(flowSum_year$maxFlow) * 100)/mean.default(flowSum_year$maxFlow)
         dh7.10 <- apply(maxRollingMean[2:5],
-                        function(x) (sd(x,na.rm=TRUE)*100)/mean(x,na.rm=TRUE),
+                        function(x) (sd(x,na.rm=TRUE)*100)/mean.default(x,na.rm=TRUE),
                         MARGIN=2)
         dh7.10 <- unname(dh7.10)
         
         
         #dh11-13
-        dh11 <- mean(flowSum_year$maxFlow)/medFlow
+        dh11 <- mean.default(flowSum_year$maxFlow)/medFlow
         dh12.13 <- dh2.5[c(2,3)]/medFlow 
         
         
         #dh14
         
         quant95 <- quantile(flowSum_yearMon$meanFlow,.95,type=6)
-        dh14 <- quant95/mean(flowSum_yearMon$meanFlow)
+        dh14 <- quant95/mean.default(flowSum_yearMon$meanFlow)
         dh14 <- unname(dh14)
         
         #dh15.16
@@ -170,7 +170,7 @@ hitDurationHigh <- function(x,yearType = "water",digits=3,pref="mean",floodThres
         yearlyDurations$avgDuration[is.nan(yearlyDurations$avgDuration)] <- 0
         
         dh15 <- median(yearlyDurations$avgDuration)
-        dh16 <- (sd(yearlyDurations$avgDuration)*100)/mean(yearlyDurations$avgDuration)
+        dh16 <- (sd(yearlyDurations$avgDuration)*100)/mean.default(yearlyDurations$avgDuration)
 
         
         #dh17-21 #differs than EflowStats because EflowSTats calculates the mean of yearly means 
@@ -207,9 +207,9 @@ hitDurationHigh <- function(x,yearType = "water",digits=3,pref="mean",floodThres
                                                                      aggType="max"))
                 if(pref=="mean")
                 {
-                        dh22 <- mean(dh22$duration)
-                        dh23 <- mean(dh23$maxDuration)
-                        dh24 <- mean(dh24$maxDuration)
+                        dh22 <- mean.default(dh22$duration)
+                        dh23 <- mean.default(dh23$maxDuration)
+                        dh24 <- mean.default(dh24$maxDuration)
                         
                 } else {
                         dh22 <- median(dh22$duration)

@@ -49,8 +49,8 @@ hitTimingLow <- function(x,yearType = "water",digits=3,pref="mean",floodThreshol
         flowSum_year$np <- cos(flowSum_year$minFlowJulDay*2*pi/365.25)
         flowSum_year$mdata <- sin(flowSum_year$minFlowJulDay*2*pi/365.25)
         
-        xbar <- mean(flowSum_year$np)
-        ybar <- mean(flowSum_year$mdata)
+        xbar <- mean.default(flowSum_year$np)
+        ybar <- mean.default(flowSum_year$mdata)
         if (xbar>0) {
                 tl1_temp <- atan(ybar/xbar)*180/pi
         } else if (xbar<0) {

@@ -86,12 +86,12 @@ hitFrequencyHigh <- function(x,yearType = "water",digits=3,pref="mean",floodThre
                                          numEvents = max(event))
         
         if(pref=="mean") {
-                fh1 <- mean(yearlyCounts$numEvents)
+                fh1 <- mean.default(yearlyCounts$numEvents)
         } else {
                 fh1 <- median(yearlyCounts$numEvents)
         }
         
-        fh2 <- sd(yearlyCounts$numEvents)/mean(yearlyCounts$numEvents)*100
+        fh2 <- sd(yearlyCounts$numEvents)/mean.default(yearlyCounts$numEvents)*100
         
         #fh3
         x$highFlow <- ifelse(x$discharge>3*medFlow,TRUE,FALSE)
@@ -99,7 +99,7 @@ hitFrequencyHigh <- function(x,yearType = "water",digits=3,pref="mean",floodThre
                                           numDays = length(highFlow[highFlow==TRUE]))
         
         if(pref=="mean") {
-                fh3 <- mean(highFlowCount$numDays)
+                fh3 <- mean.default(highFlowCount$numDays)
         } else {
                 fh3 <- median(highFlowCount$numDays)
         }
@@ -110,7 +110,7 @@ hitFrequencyHigh <- function(x,yearType = "water",digits=3,pref="mean",floodThre
                                           numDays = length(highFlow[highFlow==TRUE]))
         
         if(pref=="mean") {
-                fh4 <- mean(highFlowCount$numDays)
+                fh4 <- mean.default(highFlowCount$numDays)
         } else {
                 fh4 <- median(highFlowCount$numDays)
         }
@@ -130,7 +130,7 @@ hitFrequencyHigh <- function(x,yearType = "water",digits=3,pref="mean",floodThre
                                          numEvents = max(event))
         
         if(pref=="mean") {
-                fh5 <- mean(yearlyCounts$numEvents)
+                fh5 <- mean.default(yearlyCounts$numEvents)
         } else {
                 fh5 <- median(yearlyCounts$numEvents)
         }
@@ -152,7 +152,7 @@ hitFrequencyHigh <- function(x,yearType = "water",digits=3,pref="mean",floodThre
                                          numEvents = max(event))
         
         if(pref=="mean") {
-                fh6 <- mean(yearlyCounts$numEvents)
+                fh6 <- mean.default(yearlyCounts$numEvents)
         } else {
                 fh6 <- median(yearlyCounts$numEvents)
         }
@@ -174,7 +174,7 @@ hitFrequencyHigh <- function(x,yearType = "water",digits=3,pref="mean",floodThre
                                          numEvents = max(event))
         
         if(pref=="mean") {
-                fh7 <- mean(yearlyCounts$numEvents)
+                fh7 <- mean.default(yearlyCounts$numEvents)
         } else {
                 fh7 <- median(yearlyCounts$numEvents)
         }
@@ -196,7 +196,7 @@ hitFrequencyHigh <- function(x,yearType = "water",digits=3,pref="mean",floodThre
                                          numEvents = max(event))
         
         if(pref=="mean") {
-                fh8 <- mean(yearlyCounts$numEvents)
+                fh8 <- mean.default(yearlyCounts$numEvents)
         } else {
                 fh8 <- median(yearlyCounts$numEvents)
         }
@@ -217,7 +217,7 @@ hitFrequencyHigh <- function(x,yearType = "water",digits=3,pref="mean",floodThre
                                          numEvents = max(event))
         
         if(pref=="mean") {
-                fh9 <- mean(yearlyCounts$numEvents)
+                fh9 <- mean.default(yearlyCounts$numEvents)
         } else {
                 fh9 <- median(yearlyCounts$numEvents)
         }
@@ -237,7 +237,7 @@ hitFrequencyHigh <- function(x,yearType = "water",digits=3,pref="mean",floodThre
                                          numEvents = max(event))
         
         if(pref=="mean") {
-                fh10 <- mean(yearlyCounts$numEvents)
+                fh10 <- mean.default(yearlyCounts$numEvents)
         } else {
                 fh10 <- median(yearlyCounts$numEvents)
         }
@@ -259,7 +259,7 @@ hitFrequencyHigh <- function(x,yearType = "water",digits=3,pref="mean",floodThre
                                                  numEvents = max(event))
                 
                 if(pref=="mean") {
-                        fh11 <- mean(yearlyCounts$numEvents)
+                        fh11 <- mean.default(yearlyCounts$numEvents)
                 } else {
                         fh11 <- median(yearlyCounts$numEvents)
                 }

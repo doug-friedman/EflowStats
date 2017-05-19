@@ -54,19 +54,19 @@ hitFrequencyLow <- function(x,yearType = "water",digits=3,pref="mean",...) {
                                          numEvents = max(event))
         
         if(pref=="mean") {
-                fl1 <- mean(yearlyCounts$numEvents)
+                fl1 <- mean.default(yearlyCounts$numEvents)
         } else {
                 fl1 <- median(yearlyCounts$numEvents)
         }
         
-        fl2 <- sd(yearlyCounts$numEvents)/mean(yearlyCounts$numEvents)*100
+        fl2 <- sd(yearlyCounts$numEvents)/mean.default(yearlyCounts$numEvents)*100
         
         #fl3
         #Pick out events for each year
         yearlyCounts <-  dplyr::do(dplyr::group_by(x,year_val),
                                    {
                                            calcEvents(.$discharge,
-                                                      threshold = 0.05*mean(x$discharge),
+                                                      threshold = 0.05*mean.default(x$discharge),
                                                       type="low")
                                    }
         )
@@ -78,7 +78,7 @@ hitFrequencyLow <- function(x,yearType = "water",digits=3,pref="mean",...) {
                 yearlyCounts <- dplyr::summarize(dplyr::group_by(yearlyCounts,year_val),
                                                  numEvents = max(event))
                 if(pref=="mean") {
-                        fl3 <- mean(yearlyCounts$numEvents)
+                        fl3 <- mean.default(yearlyCounts$numEvents)
                 } else {
                         fl3 <- median(yearlyCounts$numEvents)
                 }

@@ -52,21 +52,21 @@ hitRateChange <- function(x,yearType = "water",digits=3,pref="mean",...) {
         
         #ra1.2
         if (pref == "mean") {
-                ra1 <- mean(riseValues)
+                ra1 <- mean.default(riseValues)
         } else {
                 ra1 <- median(riseValues)
         }
         
-        ra2 <- sd(riseValues)/mean(riseValues)*100
+        ra2 <- sd(riseValues)/mean.default(riseValues)*100
         
         #ra3.4 #This is slightly different than EflowStats due to rounding errors
         if (pref == "mean") {
-                ra3 <- mean(fallValues)
+                ra3 <- mean.default(fallValues)
         } else {
                 ra3 <- median(fallValues)
         }
         
-        ra4 <- sd(fallValues)/mean(fallValues)*100
+        ra4 <- sd(fallValues)/mean.default(fallValues)*100
         
         #ra5
         ra5 <- length(riseValues)/nrow(x)
@@ -95,8 +95,8 @@ hitRateChange <- function(x,yearType = "water",digits=3,pref="mean",...) {
         numYearlyEvents <- dplyr::summarize(dplyr::group_by(yearlyEvents,year_val),
                                             numEvents = max(event,na.rm=T))
         
-        ra8 <- mean(numYearlyEvents$numEvents)
-        ra9 <- sd(numYearlyEvents$numEvents)/mean(numYearlyEvents$numEvents)*100
+        ra8 <- mean.default(numYearlyEvents$numEvents)
+        ra9 <- sd(numYearlyEvents$numEvents)/mean.default(numYearlyEvents$numEvents)*100
         
         #Return stats
         raOut <- data.frame(indice = c(paste0("ra",1:9)),

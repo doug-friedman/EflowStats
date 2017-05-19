@@ -48,7 +48,7 @@ eventDuration <- function(x,threshold,aggType = "average",type="high",pref="mean
                 {
                         if(pref=="mean")
                         {
-                                eventDurations <- mean(eventDurations$duration,na.rm=TRUE)
+                                eventDurations <- mean.default(eventDurations$duration,na.rm=TRUE)
                         } else if (pref=="median")
                         {
                                 eventDurations <- median(eventDurations$duration,na.rm=TRUE)

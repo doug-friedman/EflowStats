@@ -84,7 +84,7 @@ hitDurationLow <- function(x,yearType = "water",digits=3,pref="mean",...) {
         flowSum_yearMon <- dplyr::summarize(dplyr::group_by(x,year_val,month_val),
                                             minFlow = min(discharge),
                                             medFlow = median(discharge),
-                                            meanFlow = mean(discharge),
+                                            meanFlow = mean.default(discharge),
                                             totalFlow = sum(discharge))
         minRollingMean <- dplyr::summarize(dplyr::group_by(x,year_val),
                                            minRoll3Mean = min(roll3Mean),
@@ -96,7 +96,7 @@ hitDurationLow <- function(x,yearType = "water",digits=3,pref="mean",...) {
         
         #dl1
         if (pref == "mean") {
-                dl1 <- mean(flowSum_year$minFlow)
+                dl1 <- mean.default(flowSum_year$minFlow)
         } else {
                 dl1 <- median(flowSum_year$minFlow)
         }
@@ -117,14 +117,14 @@ hitDurationLow <- function(x,yearType = "water",digits=3,pref="mean",...) {
         dl2.5 <- unname(dl2.5)
         
         #dl6-10
-        dl6 <- (sd(flowSum_year$minFlow) * 100)/mean(flowSum_year$minFlow)
+        dl6 <- (sd(flowSum_year$minFlow) * 100)/mean.default(flowSum_year$minFlow)
         dl7.10 <- apply(minRollingMean[2:5],
-                        function(x) (sd(x,na.rm=TRUE)*100)/mean(x,na.rm=TRUE),
+                        function(x) (sd(x,na.rm=TRUE)*100)/mean.default(x,na.rm=TRUE),
                         MARGIN=2)
         dl7.10 <- unname(dl7.10)
         
         #dh11-13
-        dl11 <- mean(flowSum_year$minFlow)/medFlow
+        dl11 <- mean.default(flowSum_year$minFlow)/medFlow
         dl12.13 <- dl2.5[c(2,3)]/medFlow 
         ##Unname
         dl12.13 <- unname(dl12.13)
@@ -150,19 +150,19 @@ hitDurationLow <- function(x,yearType = "water",digits=3,pref="mean",...) {
         
         
         dl16 <- median(yearlyDurations$avgDuration)
-        dl17 <- (sd(yearlyDurations$avgDuration)*100)/mean(yearlyDurations$avgDuration)
+        dl17 <- (sd(yearlyDurations$avgDuration)*100)/mean.default(yearlyDurations$avgDuration)
         
         #dl18.19
         yearlyNoFlow <- dplyr::summarize(dplyr::group_by(x,year_val),
                                          noFlowDays = length(discharge[discharge == 0]))
         if (pref == "mean") {
-                dl18 <- mean(yearlyNoFlow$noFlowDays)
+                dl18 <- mean.default(yearlyNoFlow$noFlowDays)
         } else {
                 dl18 <- median(yearlyNoFlow$noFlowDays)
         }
         
 
-        dl19 <- (sd(yearlyNoFlow$noFlowDays)*100)/mean(yearlyNoFlow$noFlowDays)
+        dl19 <- (sd(yearlyNoFlow$noFlowDays)*100)/mean.default(yearlyNoFlow$noFlowDays)
         
         #dl20
         dl20 <- length(flowSum_yearMon$totalFlow[flowSum_yearMon$totalFlow==0])
